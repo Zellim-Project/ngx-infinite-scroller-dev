@@ -1,10 +1,17 @@
+<div style="display: flex; justify-content: space-between; flex: 1">
+  <button (click)="jumpTo(5)">5</button>
+  <button (click)="jumpTo(10)">10</button>
+  <button (click)="jumpTo(15)">15</button>
+  <button (click)="jumpTo(20)">20</button>
+</div>
 <ul id="scroller"
     ngxInfiniteScroller
-    strategy="scrollingToBoth"
+    strategy="scrollingToTop"
+    [scrollToPx]="scrollTop"
     (onScrollUp)="onScrollUp()"
     (onScrollDown)="onScrollDown()">
-  <li class="news"
-      *ngFor="let item of news">
-    {{item.title}}
+  <li #divScroller class="news"
+      *ngFor="let item of news; let i = index">
+    {{item.title}} - {{i}}
   </li>
 </ul>

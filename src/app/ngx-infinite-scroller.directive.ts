@@ -58,6 +58,11 @@ export class NgxInfiniteScrollerDirective
   @Input()
   public scrollDownPercentilePositionTrigger = 98;
 
+  @Input()
+  set scrollToPx(scrollToPx) {
+    this.scrollTo(scrollToPx);
+  }
+
   @Output()
   public onScrollUp: EventEmitter<null> = new EventEmitter<null>();
 

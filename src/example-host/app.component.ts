@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
@@ -10,12 +10,14 @@ import { share, finalize } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  @ViewChildren ('divScroller') divScroller: QueryList<ElementRef>;
 
   public news: Array<any> = [];
 
   private currentPage = 1;
 
   private request$: Observable<any>;
+  scrollTop: number;
 
   constructor(private http: HttpClient) { }
 
@@ -59,5 +61,10 @@ export class AppComponent implements OnInit {
 
   private onFinalize(): void {
     this.request$ = null;
+  }
+
+  jumpTo(number: number) {
+    this.scrollTop = this.divScroller.toArray()[number].nativeElement.offsetTop;
+    console.log(this.scrollTop);
   }
 }
