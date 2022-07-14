@@ -59,6 +59,9 @@ export class NgxInfiniteScrollerDirective
   public scrollDownPercentilePositionTrigger = 98;
 
   @Input()
+  public avoidSettingPreviousScrollPosition: boolean;
+
+  @Input()
   set scrollToPx(scrollToPx) {
     this.scrollTo(scrollToPx);
   }
@@ -192,8 +195,10 @@ export class NgxInfiniteScrollerDirective
       skipWhile(() => this.state.initMode),
       debounceTime(this.scrollDebounceTimeAfterScrollHeightChanged)
     ).subscribe(() => {
-      this.scrollingStrategy.setPreviousScrollPosition();
-      this.state.previousScrollPositionpUpdated = true;
+      if (!this.avoidSettingPreviousScrollPosition) {
+        this.scrollingStrategy.setPreviousScrollPosition();
+        this.state.previousScrollPositionpUpdated = true;
+      }
     });
   }
 
