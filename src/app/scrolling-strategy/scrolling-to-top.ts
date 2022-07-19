@@ -51,8 +51,9 @@ export class ScrollingToTop extends StrategyBase implements ScrollingStrategy {
     const initialScrollPositionValue = super.getInitialScrollPositionValue(
       InitialScrollPosition.BOTTOM,
     );
-
-    this.directive.scrollTo(initialScrollPositionValue);
+    if (!this.directive.avoidSettingPreviousScrollPosition) {
+      this.directive.scrollTo(initialScrollPositionValue);
+    }
   }
 
   public setPreviousScrollPosition(): void {
